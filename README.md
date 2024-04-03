@@ -1,4 +1,4 @@
-# prr
+# prrr
 
 This is a simple tool to help you manage your pull requests.
 
@@ -13,19 +13,19 @@ OPENAI_API_KEY=your_api_key
 ## Installation
 
 ```bash
-poetry install && poetry update
+pip install prrr
 ```
 
 ## Usage
 
 ```shell
-prr pr gen
+prrr pr gen
 ```
 
 ## Help
 
 ```bash
- Usage: prr [OPTIONS] COMMAND [ARGS]...                                                                                                                                         
+ Usage: prrr [OPTIONS] COMMAND [ARGS]...                                                                                                                                         
                                                                                                                                                                                 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ --help                                                       Show this message and exit.                                                                                     │
