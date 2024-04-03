@@ -7,7 +7,7 @@ from rich.prompt import Prompt
 from typer_config import use_yaml_config
 from typer_config.callbacks import argument_list_callback
 
-from prr.utils.git import get_current_branch, get_git_remote_url, read_last_commits
+from prrr.utils.git import get_current_branch, get_git_remote_url, read_last_commits
 
 app = typer.Typer()
 

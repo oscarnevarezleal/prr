@@ -1,7 +1,7 @@
 import typer
 
-from prr.commands.init import generate_config_file
-from prr.commands.pr import app as generate
+from prrr.commands.init import generate_config_file
+from prrr.commands.pr import app as generate
 
 app = typer.Typer()
 app.add_typer(generate, name="pr", help="Generate a Pull Request")
