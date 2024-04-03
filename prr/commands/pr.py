@@ -28,10 +28,13 @@ def load_default_template_file():
     return ''
 
 
-@app.command()
+@app.command("gen")
 @use_yaml_config(default_value=".prr")
-def pr(
-        model: str = typer.Argument(default="gpt-3.5-turbo"),
+def pr_gen(
+        open_browser: bool = typer.Option(default=False),
+        tone: str = typer.Option(default="friendly"),
+        person: str = typer.Option(default="Donald Draper"),
+        model: str = typer.Option(default="gpt-3.5-turbo"),
         instructions: List[str] = typer.Argument(default=None, callback=argument_list_callback),
         template: str = typer.Argument(default=None, callback=load_default_template_file),
 ):
@@ -46,6 +49,9 @@ def pr(
     for instruction in instructions:
         instructions_messages.append({"role": "system", "content": instruction})
 
+    instructions_messages.append(
+        {"role": "system", "content": "You are " + person + " and you are invested in this project."})
+
     commits = read_last_commit_message().split("\n")
     context_messages = [
         {"role": "user", "content": "These are the commit message I want to use:"}
@@ -57,6 +63,12 @@ def pr(
         {
             "role": "system",
             "content": "Use the following template to organize and describe the changes: <template>" + template + "</template>"
+        })
+
+    context_messages.append(
+        {
+            "role": "system",
+            "content": "Remember to use a " + tone + " tone."
         })
 
     while True:
@@ -78,9 +90,9 @@ def pr(
     )
 
     pr_body = chat_completion.choices[0].message.content
-    current_branch = get_current_branch()
-
     print(pr_body)
 
-    pr_url = get_git_remote_url() + '/compare/' + current_branch + '?&title=default&expand=1&body=' + pr_body
-    webbrowser.open(pr_url, new=2)
+    if open_browser:
+        current_branch = get_current_branch()
+        pr_url = get_git_remote_url() + '/compare/' + current_branch + '?&title=default&expand=1&body=' + pr_body
+        webbrowser.open(pr_url, new=2)

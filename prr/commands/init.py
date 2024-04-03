@@ -1,26 +1,14 @@
-import typer
 import yaml
 
-app = typer.Typer()
 
-
-@app.command()
-def init():
-    print("Initializing project")
-    # this command writes a YML file in the current directory
-    # name it as .prr
-    # and initialize its content with the default values
-    # for the project
+def generate_config_file():
     file_name = ".prr"
     defaults = {
         "project_name": "My Project",
         "project_description": "This is a project description",
         "model": "gpt-3.5-turbo",
-        "personality":
-            {
-                "name": "Ada",
-                "description": "A friendly developer assistant"
-            },
+        "tone": "friendly",  # friendly, professional, or casual
+        "person": "senior software engineer",
         "template": "Template begins here: ```markdown" + "\n" +
                     "### Description" + "\n" +
                     "Describe the changes you've made in this pull request." + "\n" +
@@ -40,7 +28,7 @@ def init():
             "You are a brilliant, meticulous and a great communicator engineer co-authoring a pull request. "
             "I will provide you with the description of the changes, the benefits, and the changelog. "
             "I want you to help me redact this pull request body in a way is clear, concise, and informative.",
-            "Feel free to add any additional information you think is relevant. ",
+            'Feel free to add any additional information you think is relevant.',
             "Print the markdown result without recommendations nor comments."
         ]
     }
