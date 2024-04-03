@@ -7,7 +7,7 @@ from rich.prompt import Prompt
 from typer_config import use_yaml_config
 from typer_config.callbacks import argument_list_callback
 
-from prr.utils.git import read_last_commit_message, get_current_branch, get_git_remote_url
+from prr.utils.git import get_current_branch, get_git_remote_url, read_last_commits
 
 app = typer.Typer()
 
@@ -32,6 +32,7 @@ def load_default_template_file():
 @use_yaml_config(default_value=".prr")
 def pr_gen(
         open_browser: bool = typer.Option(default=False),
+        prompt: bool = typer.Option(default=False),
         tone: str = typer.Option(default="friendly"),
         person: str = typer.Option(default="Donald Draper"),
         model: str = typer.Option(default="gpt-3.5-turbo"),
@@ -52,30 +53,25 @@ def pr_gen(
     instructions_messages.append(
         {"role": "system", "content": "You are " + person + " and you are invested in this project."})
 
-    commits = read_last_commit_message().split("\n")
     context_messages = [
-        {"role": "user", "content": "These are the commit message I want to use:"}
-    ]
-    for commit in commits:
-        context_messages.append({"role": "user", "content": "- " + commit})
-
-    context_messages.append(
+        {
+            "role": "user",
+            "content": "These are the commits I want you to use " + read_last_commits()},
         {
             "role": "system",
             "content": "Use the following template to organize and describe the changes: <template>" + template + "</template>"
-        })
-
-    context_messages.append(
-        {
+        }, {
             "role": "system",
             "content": "Remember to use a " + tone + " tone."
-        })
+        }]
 
-    while True:
-        user_message = Prompt.ask("Additional notes (Press Enter to skip)")
-        if user_message == "":
-            break
-        context_messages.append({"role": "user", "content": user_message})
+    # prompt user for additional notes
+    if prompt:
+        while True:
+            user_message = Prompt.ask("Additional notes (Press Enter to skip)")
+            if user_message == "":
+                break
+            context_messages.append({"role": "user", "content": user_message})
 
     messages = [
         *instructions_messages,

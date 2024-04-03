@@ -6,6 +6,11 @@ def read_last_commit_message():
     return os.popen("git log -1 --pretty=%B").read().strip()
 
 
+def read_last_commits():
+    # read the last commit message
+    return os.popen("git log --pretty=%B").read().strip()
+
+
 def get_git_remote_url():
     git_uri = os.popen("git config --get remote.origin.url").read().strip()
     # strip : at the end
