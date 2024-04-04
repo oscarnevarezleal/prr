@@ -18,8 +18,19 @@ pip install prrr
 
 ## Usage
 
+### initialize your project
+```shell
+prrr init
+```
+
+### Generate PR
 ```shell
 prrr pr gen
+```
+
+Use a pinch of personality
+```shell
+prrr pr gen --tone creative
 ```
 
 ## Help
