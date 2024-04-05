@@ -1,6 +1,6 @@
 # prrr
 
-This is a simple tool to help you manage your pull requests.
+This is a simple tool to help you write better pull requests using AI.
 
 ## Requirements
 
