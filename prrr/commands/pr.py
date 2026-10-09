@@ -56,7 +56,8 @@ def pr_gen(
     context_messages = [
         {
             "role": "user",
-            "content": "These are the commits I want you to use " + read_last_commits()},
+            "content": "These are the commits I want you to use: \n " + read_last_commits()
+        },
         {
             "role": "system",
             "content": "Use the following template to organize and describe the changes: <template>" + template + "</template>"

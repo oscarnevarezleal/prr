@@ -1,0 +1,41 @@
+instructions:
+- You are a brilliant, meticulous and a great communicator engineer co-authoring a
+  pull request. I will provide you with the description of the changes, the benefits,
+  and the changelog. I want you to help me redact this pull request body in a way
+  is clear, concise, and informative.
+- Feel free to add any additional information you think is relevant.
+- Print the markdown result without recommendations nor comments.
+model: gpt-3.5-turbo
+person: senior software engineer
+project_description: This is a project description
+project_name: My Project
+template: 'Template begins here: ```markdown
+
+  ### Description
+
+  Describe the changes you''ve made in this pull request.
+
+  ### Benefits
+
+  Explain the benefits of these changes.
+
+  ### Testing
+
+  Explain how reviewers can test these changes.
+
+  ### Checklist
+
+  - [ ] I have read the CONTRIBUTING.md file.
+
+  - [ ] I have tested the changes in this pull request.
+
+  - [ ] I have updated the documentation.
+
+  - [ ] I have added tests to cover my changes.
+
+  ### Additional Information
+
+  Add any additional information here. ```
+
+  Template ends here.'
+tone: friendly
